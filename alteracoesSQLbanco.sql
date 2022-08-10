@@ -1,2 +1,2 @@
--- alter USER USPAgenda WITH PASSWORD '230383asD#';
+-- alter USER USPAgenda WITH PASSWORD '';
 SELECT * FROM "Contato_contato";
