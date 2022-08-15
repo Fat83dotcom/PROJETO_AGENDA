@@ -1,10 +1,15 @@
 from django.shortcuts import render  # get_object_or_404
 from .models import Contato
 from django.http import Http404
+from django.core.paginator import Paginator
 
 
 def index(request):
     contatos = Contato.objects.all()
+    paginador = Paginator(contatos, 5)
+    page = request.GET.get('p')
+    contatos = paginador.get_page(page)
+
     return render(request, 'contato/index.html', {
         'contatos': contatos
     })
