@@ -19,6 +19,9 @@ def contatos(request, contato_id):
     # contato = get_object_or_404(Contato, id=contato_id)  # maneira mais simples do que com o try
     try:
         contato = Contato.objects.get(id=contato_id)
+        if not contato.mostrar:
+            raise Http404
+
         return render(request, 'contato/viewer_contato.html', {
             'contato': contato
         })
