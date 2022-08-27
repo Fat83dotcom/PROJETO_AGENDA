@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect  # get_object_or_404
 from .models import Contato
-from django.http import Http404
+# from django.http import Http404
 from django.core.paginator import Paginator
 from django.contrib import messages
 
 
 def index(request):
+
     contatos = Contato.objects.order_by('-id')
     paginador = Paginator(contatos, 5)
     page = request.GET.get('p')
@@ -30,4 +31,8 @@ def contatos(request, contato_id):
             'contato': contato
         })
     except Contato.DoesNotExist:
-        raise Http404
+        # raise Http404
+        messages.add_message(request,
+                             messages.ERROR,
+                             'A página não Existe !')
+        return redirect('index')
