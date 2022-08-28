@@ -6,12 +6,12 @@ def login(request):
 
 
 def logout(request):
-    pass
+    return render(request, 'ContaUsuario/logout.html')
 
 
 def cadastro(request):
-    pass
+    return render(request, 'ContaUsuario/cadastro.html')
 
 
 def dashboard(request):
-    pass
+    return render(request, 'ContaUsuario/dashboard.html')
