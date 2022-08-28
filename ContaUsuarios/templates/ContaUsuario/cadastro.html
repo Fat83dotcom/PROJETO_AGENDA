@@ -1,4 +1,41 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-<h1>Cadastro</h1>
+<h1  class="mb-3 mt-3" >Cadastro</h1>
+
+
+<form method="POST" action="{% url 'cadastro'%}">
+    {%include 'parciais/_mensagem.html'%}
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="nomeUsuario" class="form-label">Nome</label>
+      <input type="text" name="Nome" class="form-control" id="nomeUsuario" >
+      
+    </div>
+    <div class="mb-3">
+      <label for="SobrenomeUsuario" class="form-label">Sobrenome</label>
+      <input type="text" name="Sobrenome" class="form-control" id="SobrenomeUsuario" >
+      
+    </div>
+    <div class="mb-3">
+      <label for="usuario" class="form-label">Usuário</label>
+      <input type="text" name="usuario" class="form-control" id="usuario" >
+      
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email</label>
+      <input type="email" name="email" class="form-control" id="exampleInputEmail1" >
+      
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Senha</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword2" class="form-label">Repetir Senha</label>
+      <input type="password" class="form-control" id="exampleInputPassword2">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+  </form>
+
 {% endblock %}
