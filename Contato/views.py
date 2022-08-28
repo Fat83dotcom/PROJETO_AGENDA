@@ -30,7 +30,7 @@ def contatos(request, contato_id):
         return render(request, 'contato/viewer_contato.html', {
             'contato': contato
         })
-    except Contato.DoesNotExist:
+    except (Contato.DoesNotExist,):
         # raise Http404
         messages.add_message(request,
                              messages.ERROR,
