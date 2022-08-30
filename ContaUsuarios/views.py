@@ -10,6 +10,7 @@ def logout(request):
 
 
 def cadastro(request):
+    
     return render(request, 'ContaUsuario/cadastro.html')
 
 
