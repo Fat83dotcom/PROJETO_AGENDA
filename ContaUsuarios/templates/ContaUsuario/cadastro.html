@@ -2,37 +2,37 @@
 {% block conteudo %}
 <h1  class="mb-3 mt-3" >Cadastro</h1>
 
+<!-- value="{{request.POST.}}" serve para manter os valores salvos no campos do formulario -->
 
 <form method="POST" action="{% url 'cadastro'%}">
-    {%include 'parciais/_mensagem.html'%}
     {% csrf_token %}
     <div class="mb-3">
       <label for="nomeUsuario" class="form-label">Nome</label>
-      <input type="text" name="Nome" class="form-control" id="nomeUsuario" >
+      <input type="text" name="Nome" value="{{request.POST.Nome}}" class="form-control" id="nomeUsuario" >
       
     </div>
     <div class="mb-3">
       <label for="SobrenomeUsuario" class="form-label">Sobrenome</label>
-      <input type="text" name="Sobrenome" class="form-control" id="SobrenomeUsuario" >
+      <input type="text" name="sobreNome" value="{{request.POST.sobreNome}}" class="form-control" id="SobrenomeUsuario" >
       
     </div>
     <div class="mb-3">
       <label for="usuario" class="form-label">Usuário</label>
-      <input type="text" name="usuario" class="form-control" id="usuario" >
+      <input type="text" name="usuario" value="{{request.POST.usuario}}" class="form-control" id="usuario" >
       
     </div>
     <div class="mb-3">
       <label for="email" class="form-label">Email</label>
-      <input type="email" name="email" class="form-control" id="email" >
+      <input type="email" name="email" value="{{request.POST.email}}" class="form-control" id="email" >
       
     </div>
     <div class="mb-3">
       <label for="senha1" class="form-label">Senha</label>
-      <input type="password" class="form-control" id="senha1">
+      <input type="password" name="senha1" class="form-control" id="senha1">
     </div>
     <div class="mb-3">
       <label for="senha2" class="form-label">Repetir Senha</label>
-      <input type="password" class="form-control" id="senha2">
+      <input type="password" name="senha2" class="form-control" id="senha2">
     </div>
 
     <button type="submit" class="btn btn-primary">Cadastrar</button>
