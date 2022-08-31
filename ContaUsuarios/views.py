@@ -16,12 +16,16 @@ def cadastro(request):
     if request.method != 'POST':
         return render(request, 'ContaUsuario/cadastro.html')
 
+    # recebe os dados cadastrados na pagina html
+
     nome = request.POST.get('Nome')
     sobreNome = request.POST.get('sobreNome')
     usuario = request.POST.get('usuario')
     email = request.POST.get('email')
     senha1 = request.POST.get('senha1')
     senha2 = request.POST.get('senha2')
+
+    # essa parte faz a validação da página
 
     try:
         validate_email(email)
@@ -34,6 +38,11 @@ def cadastro(request):
         messages.add_message(request, messages.ERROR, 'Preencha todos os campos !')
         return render(request, 'ContaUsuario/cadastro.html')
     else:
+        if User.objects.filter(username=usuario).exists():
+            messages.error(request, 'Usuário já existe.')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'E-mail já existe.')
 
         if len(usuario) < 6:
             messages.error(request, 'O usuário deve conter no mínimo 6 caracteres.')
@@ -43,12 +52,6 @@ def cadastro(request):
 
         if senha1 != senha2:
             messages.error(request, 'As senhas não conferem.')
-
-        if User.objects.filter(username=usuario).exists():
-            messages.error(request, 'Usuário já existe.')
-
-        if User.objects.filter(email=email).exists():
-            messages.error(request, 'E-mail já existe.')
 
         return render(request, 'ContaUsuario/cadastro.html')
 
