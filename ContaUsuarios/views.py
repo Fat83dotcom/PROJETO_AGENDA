@@ -1,5 +1,6 @@
+from sre_constants import SUCCESS
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
 
@@ -18,8 +19,8 @@ def cadastro(request):
 
     # recebe os dados cadastrados na pagina html
 
-    nome = request.POST.get('Nome')
-    sobreNome = request.POST.get('sobreNome')
+    nome = request.POST.get('Nome').title()
+    sobreNome = request.POST.get('sobreNome').title()
     usuario = request.POST.get('usuario')
     email = request.POST.get('email')
     senha1 = request.POST.get('senha1')
@@ -37,25 +38,31 @@ def cadastro(request):
             or not senha1 or not senha2:
         messages.add_message(request, messages.ERROR, 'Preencha todos os campos !')
         return render(request, 'ContaUsuario/cadastro.html')
-    else:
+
+    try:
         if User.objects.filter(username=usuario).exists():
-            messages.error(request, 'Usuário já existe.')
+            raise messages.error(request, 'Usuário já existe.')
 
         if User.objects.filter(email=email).exists():
-            messages.error(request, 'E-mail já existe.')
+            raise messages.error(request, 'E-mail já existe.')
 
         if len(usuario) < 6:
-            messages.error(request, 'O usuário deve conter no mínimo 6 caracteres.')
+            raise messages.error(request, 'O usuário deve conter no mínimo 6 caracteres.')
 
         if len(senha1) < 6 or len(senha2) < 6:
-            messages.error(request, 'A senha deve conter no mínimo 6 caracteres.')
+            raise messages.error(request, 'A senha deve conter no mínimo 6 caracteres.')
 
         if senha1 != senha2:
-            messages.error(request, 'As senhas não conferem.')
-
+            raise messages.error(request, 'As senhas não conferem.')
+    except Exception:
         return render(request, 'ContaUsuario/cadastro.html')
 
-    # return render(request, 'ContaUsuario/cadastro.html')
+    user = User.objects.create_user(username=usuario, password=senha1,
+                                    email=email, first_name=nome,
+                                    last_name=sobreNome)
+    user.save()
+    messages.success(request, 'Usuário cadastrado com Sucesso.')
+    return redirect('login')
 
 
 def dashboard(request):
