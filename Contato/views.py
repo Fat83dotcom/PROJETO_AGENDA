@@ -3,8 +3,10 @@ from .models import Contato
 # from django.http import Http404
 from django.core.paginator import Paginator
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
+@login_required(redirect_field_name='login')
 def index(request):
 
     contatos = Contato.objects.order_by('-id')
@@ -16,6 +18,7 @@ def index(request):
     })
 
 
+@login_required(redirect_field_name='login')
 def contatos(request, contato_id):
     # contato = get_object_or_404(Contato, id=contato_id)  # maneira mais simples do que com o try
     try:

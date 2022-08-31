@@ -1,12 +1,26 @@
-from sre_constants import SUCCESS
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.shortcuts import render, redirect
 from django.core.validators import validate_email
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 def login(request):
-    return render(request, 'ContaUsuario/login.html')
+    if request.method != 'POST':
+        return render(request, 'ContaUsuario/login.html')
+
+    email = request.POST.get('email')
+    senha = request.POST.get('senha')
+
+    user = auth.authenticate(request, email=email, password=senha)
+
+    if not user:
+        messages.error(request, 'Email ou Senha inválidos.')
+        return render(request, 'ContaUsuario/login.html')
+    else:
+        auth.login(request, user)
+        messages.success(request, 'Login efetuado com Sucesso.')
+        return redirect('dashboard')
 
 
 def logout(request):
@@ -65,5 +79,6 @@ def cadastro(request):
     return redirect('login')
 
 
+@login_required(redirect_field_name='login')
 def dashboard(request):
     return render(request, 'ContaUsuario/dashboard.html')
