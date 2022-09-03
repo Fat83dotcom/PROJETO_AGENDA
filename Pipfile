@@ -11,6 +11,8 @@ requests = "*"
 types-requests = "*"
 
 [dev-packages]
+mypy = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3.10"

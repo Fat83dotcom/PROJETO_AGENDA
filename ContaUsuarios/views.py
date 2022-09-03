@@ -60,11 +60,11 @@ def cadastro(request):
         if User.objects.filter(email=email).exists():
             raise messages.error(request, 'E-mail já existe.')
 
-        if len(usuario) < 6:
-            raise messages.error(request, 'O usuário deve conter no mínimo 6 caracteres.')
+        if len(usuario) < 8:
+            raise messages.error(request, 'O usuário deve conter no mínimo 8 caracteres.')
 
-        if len(senha1) < 6 or len(senha2) < 6:
-            raise messages.error(request, 'A senha deve conter no mínimo 6 caracteres.')
+        if len(senha1) < 8 or len(senha2) < 8:
+            raise messages.error(request, 'A senha deve conter no mínimo 8 caracteres.')
 
         if senha1 != senha2:
             raise messages.error(request, 'As senhas não conferem.')
