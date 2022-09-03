@@ -9,7 +9,6 @@ def login(request):
     if request.method != 'POST':
         return render(request, 'ContaUsuario/login.html')
 
-    # email = request.POST.get('email')
     usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
 
@@ -25,7 +24,18 @@ def login(request):
 
 
 def logout(request):
-    return render(request, 'ContaUsuario/logout.html')
+    try:
+        # esse codigo sera executado caso haja usuario logado,
+        #  caso contrario levantara uma excessão, tratada logo a seguir
+
+        user = auth.get_user(request)
+        auth.logout(request)
+        messages.success(request, f'{user.first_name} {user.last_name}, você saiu!')
+        return redirect('login')
+    except AttributeError:
+        auth.logout(request)
+        messages.info(request, 'Faça Login !')
+        return redirect('login')
 
 
 def cadastro(request):
@@ -34,8 +44,8 @@ def cadastro(request):
 
     # recebe os dados cadastrados na pagina html
 
-    nome = request.POST.get('Nome').title()
-    sobreNome = request.POST.get('sobreNome').title()
+    nome = request.POST.get('Nome')
+    sobreNome = request.POST.get('sobreNome')
     usuario = request.POST.get('usuario')
     email = request.POST.get('email')
     senha1 = request.POST.get('senha1')
