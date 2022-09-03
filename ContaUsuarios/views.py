@@ -96,4 +96,7 @@ def cadastro(request):
 
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    return render(request, 'ContaUsuario/dashboard.html')
+    user = auth.get_user(request)
+    return render(request, 'ContaUsuario/dashboard.html', {
+        'user': user,
+    })

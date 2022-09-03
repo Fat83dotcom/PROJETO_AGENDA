@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% block conteudo %}
-<h1 class="mb-3 mt-3">Olá {{user.first_name.title}} {{user.last_name.title}}, seja Bem Vindo(a) a sua agenda !!!</h1>
-<h2>Seu nome de usuário: {{user}}</h2>
+    <h1 class="mb-3 mt-3">Olá {{user.first_name.title}} {{user.last_name.title}}, seja Bem Vindo(a) a sua agenda !!!</h1>
+    <h2>Seu nome de usuário: {{user}}</h2>
+    <section>
+        <h2>Informações sobre {{user}}:</h2>
+        <ul>
+            <li>Ultimo Login: {{user.last_login}}</li>
+            <li>Data da Criação da Conta: {{user.date_joined}}</li>
+            <li>Email cadastrado: {{user.email}}</li>
+        </ul>
+    </section>
 {% endblock %}
