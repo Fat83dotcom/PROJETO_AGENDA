@@ -30,8 +30,12 @@ def logout(request):
 
         user = auth.get_user(request)
         auth.logout(request)
-        messages.success(request, f'{user.first_name} {user.last_name}, você saiu!')
-        return redirect('login')
+        if user.first_name != '' and user.last_name != '':
+            messages.success(request, f'{user.first_name} {user.last_name}, você saiu!')
+            return redirect('login')
+        else:
+            messages.success(request, 'Usuario sem nome, você saiu !')
+            return redirect('login')
     except AttributeError:
         auth.logout(request)
         messages.info(request, 'Faça Login !')
