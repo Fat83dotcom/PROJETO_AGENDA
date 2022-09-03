@@ -9,13 +9,14 @@ def login(request):
     if request.method != 'POST':
         return render(request, 'ContaUsuario/login.html')
 
-    email = request.POST.get('email')
+    # email = request.POST.get('email')
+    usuario = request.POST.get('usuario')
     senha = request.POST.get('senha')
 
-    user = auth.authenticate(request, email=email, password=senha)
+    user = auth.authenticate(request, username=usuario, password=senha)
 
     if not user:
-        messages.error(request, 'Email ou Senha inválidos.')
+        messages.error(request, 'Usuário ou Senha inválidos.')
         return render(request, 'ContaUsuario/login.html')
     else:
         auth.login(request, user)

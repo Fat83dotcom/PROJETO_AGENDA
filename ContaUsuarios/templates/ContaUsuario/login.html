@@ -5,9 +5,8 @@
 <form method="POST" action="{% url 'login'%}">
   {% csrf_token %}
   <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" name="email" value="{{request.POST.email}}" class="form-control" id="email">
-
+    <label for="usuario" class="form-label">Usuário</label>
+    <input type="text" name="usuario" value="{{request.POST.usuario}}" class="form-control" id="usuario">
   </div>
   <div class="mb-3">
     <label for="senha" class="form-label">Senha</label>
