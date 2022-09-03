@@ -65,7 +65,7 @@ def cadastro(request):
 
     if not nome or not sobreNome or not usuario or not email \
             or not senha1 or not senha2:
-        messages.add_message(request, messages.ERROR, 'Preencha todos os campos !')
+        messages.error(request, 'Preencha todos os campos !')
         return render(request, 'ContaUsuario/cadastro.html')
 
     try:
@@ -96,7 +96,5 @@ def cadastro(request):
 
 @login_required(redirect_field_name='login')
 def dashboard(request):
-    user = auth.get_user(request)
-    return render(request, 'ContaUsuario/dashboard.html', {
-        'user': user,
-    })
+    # usuar = auth.get_user(request)
+    return render(request, 'ContaUsuario/dashboard.html')
